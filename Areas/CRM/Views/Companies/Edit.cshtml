@@ -1,0 +1,749 @@
+﻿@model dynamic
+<script src="~/Scripts/Application/ng-companies.js" type="text/javascript"></script>
+<script src="~/contents/knockout/knockout.mapping-latest.js" type="text/javascript"></script>
+
+
+<div id="company_body" style="background-color:white">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row"><div class='page-title'><span>Companies</span></div></div>
+            <div class="row sub-heading"><div class='page-subtitle' data-bind="text: pageTitle"></div></div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    
+    <hr />
+    
+    @* Company Details *@
+    <div class="container">
+        <div class="row">
+            @* [[[[[ Event Related ]]]]] *@
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Company Information</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+                                
+                                <label>Company&nbsp;<span class="label label-danger" data-bind='visible: COMPANYNAME.hasError, text: COMPANYNAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="company_name" maxlength="50" type="text"  class="form-control" data-bind="value: COMPANYNAME"/>
+                                </div>
+                                <label>Company Ownership</label>
+                                <div class="controls">
+                                    <input id="company_ownership" class="form-control"  maxlength="50" type="text"  data-bind="value: CompanyOwnership">
+                                </div>
+                                 <label>Company Description</label>
+                                <div class="controls">
+                                    <input id="company_description" class="form-control"  maxlength="50" type="text"  data-bind="value: CompanyDescription">
+                                </div>
+                                 <label>Address</label>
+                                <div class="controls" >
+                                    <input id="company_address"  class="form-control" maxlength="150" type="text"  data-bind="value: Address">
+                                </div>
+                                 <label>City</label>
+                                <div class="controls">
+                                    <input id="company_city" class="form-control"  maxlength="50" type="text"  data-bind="value: CITY">
+                                </div>
+                                  <label>State</label>
+                                <div class="controls">
+                                    <input id="company_state" class="form-control"  maxlength="50" type="text"  data-bind="value: STATE">
+                                </div>
+                                  <label>Zip</label>
+                                <div class="controls">
+                                    <input id="company_zip" class="form-control"  maxlength="7" type="text"  data-bind="value: Zip">
+                                </div>
+                                 <label>Country</label>
+                                <div class="controls">
+                                    <input id="company_country" class="form-control"  maxlength="50" type="text"  data-bind="value: Country">
+                                </div>
+                              
+                                 <label>Is Same Billing Address</label>
+                                 <div class="controls">
+                                    <input id="company_isSameBilling" type="text"  data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsSameBillingAddressInt }"/>
+                                 </div>
+                                 <label>Billing Address</label>
+                                <div class="controls" >
+                                    <input id="company_billingAddress" class ="form-control"  maxlength="150" type="text"  data-bind="value: BillingAddress">
+                                </div>
+                              
+                                 <label>Billing City</label>
+                                <div class="controls">
+                                    <input id="company_billingCity" class="form-control"  maxlength="50" type="text"  data-bind="value: BillingCity">
+                                </div>
+                              
+                                 <label>Billing State</label>
+                                <div class="controls">
+                                    <input id="company_billing State" class="form-control"  maxlength="50" type="text"  data-bind="value: BillingState">
+                                </div>
+                                 <label>Billing Zip</label>
+                                <div class="controls">
+                                    <input id="company_billingZip" class="form-control"  maxlength="7" type="text"  data-bind="value: BillingZip">
+                                </div>
+                                 <label>Billing Country</label>
+                                <div class="controls">
+                                    <input id="company_billingCountry" class="form-control"  maxlength="50" type="text"  data-bind="value: BillingCountry">
+                                </div>
+                              
+                              
+                              
+
+                            </div>
+
+                        </form>
+                    </div>
+                    
+                    @*<div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                test2
+                            </div>
+                        </form>
+                    </div>
+                    *@
+
+                </div>
+
+                <div class="row">
+                      <form>
+                          <div class="form-group">
+                                 <label>Company Notes</label>
+                                <div class="controls">
+                                     <textarea id="company_Notes"  maxlength="100" type="text" class="form-control col-md-12" rows="5" data-bind="value: Notes"/>
+                                </div>
+                          </div>
+                      </form>
+                      </div>
+                                
+            </div>
+
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Company Details</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                 <label>POC Last Name&nbsp;<span class="label label-danger" data-bind='visible: POCLastName.hasError, text: POCLastName.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="company_pocLastName" maxlength="50" type="text" class="form-control" data-bind="value: POCLastName"/>
+                                </div>
+                                  <label>POC First Name&nbsp;<span class="label label-danger" data-bind='visible: POCLastName.hasError, text: POCLastName.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="company_pocFirstName" maxlength="50" type="text" class="form-control" data-bind="value: POCFirstName"/>
+                                </div>
+                                
+                                <label>POC Work Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-suitcase"></i>
+                                    </span> 
+                                    <input id="company_pocPhone" maxlength="50" type="text" class="form-control" data-bind="value: POCPhone"/>
+                                </div>
+                               
+                                
+                                
+                                <label>POC Department</label>
+                                <div class="controls">
+                                     <input id="company_pocDepartment" maxlength="50" type="text" class="form-control" data-bind="value: POCDepartment"/>
+                                </div>
+                                
+                                <label>POC Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span> 
+                                    <input id="company_pocEmail" maxlength="50" type="text" class="form-control" data-bind="value: POCEmail"/>
+                                </div>
+                                                                
+                                <label>POC FAX</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <span class=" glyphicon glyphicon-file"></span>
+                                    </span> 
+                                    <input id="company_pocFAX" maxlength="50" type="text" class="form-control" data-bind="value: POCFax"/>
+                                </div>
+                                 <label>Assistant Last Name</label>
+                                <div class="controls">
+                                     <input id="company_assistantLastName" maxlength="50" type="text" class="form-control" data-bind="value: AssistantLastName"/>
+                                </div>
+                                 <label>Assistant First Name</label>
+                                <div class="controls">
+                                     <input id="company_assistantFirstName" maxlength="50" type="text" class="form-control" data-bind="value: AssistantFirstName"/>
+                                </div>
+                                <label>Assistant Work Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-suitcase"></i>
+                                    </span> 
+                                    <input id="company_assistant Phone" maxlength="50" type="text" class="form-control" data-bind="value: AssistantPhone"/>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                  <label>Is New Company</label>
+                                 <div class="controls">
+                                    <input id="company_isNewCompany" type="text" data-bind="kendoDropDownList: { dataTextField: 'Description', dataValueField: 'Value', data: yesNoData, value: IsNewCompanyInt }"/>
+                                 </div>
+                                 <label>Company Website</label>
+                                <div class="controls">
+                                     <input id="company_companyWebsite" maxlength="50" type="text" class="form-control" data-bind="value: Website"/>
+                                </div>
+                                  <label>Employee Quantity</label>
+                                <div class="controls">
+                                     <input id="company_employeeQuantity" maxlength="50" type="text" class="form-control" data-bind="value: EmpQuantity"/>
+                                </div>
+                                  <label>Company Value Goal (in $)</label>
+                                <div class="controls">
+                                     <input id="company_valueGoal" maxlength="50" type="text" class="form-control" data-bind="value: COMPANYVALUEGOAL"/>
+                                </div>
+                                  <label>Industry</label>
+                                 <div class="controls">
+                                    <input id="company_industry" type="text" data-bind="kendoDropDownList: { dataTextField: 'IndustryTypeName', dataValueField: 'IndId', data: industries, value: IndustryId, optionLabel : 'Please Select..' }"/>
+                                 </div>
+                                  <label>Sandler Rep Last Name</label>
+                                <div class="controls">
+                                     <input id="company_sandlerRepLastName" maxlength="50" type="text" class="form-control" data-bind="value: RepLastName"/>
+                                </div>
+                                   <label>Sandler Rep First Name</label>
+                                <div class="controls">
+                                     <input id="company_sandlerRepFirstName" maxlength="50" type="text" class="form-control" data-bind="value: RepFirstName"/>
+                                </div>
+                                  <label>Discussion Topic</label>
+                                <div class="controls">
+                                     <input id="company_discussionTopic" maxlength="50" type="text" class="form-control" data-bind="value: DiscussionTopic"/>
+                                </div>
+                                   <label>Action Step</label>
+                                <div class="controls">
+                                     <input id="company_actionstep" maxlength="50" type="text" class="form-control" data-bind="value: ACTIONSTEP"/>
+                                </div>
+                                  <label>Last Contact Date</label>
+                                <div class="controls">
+                                     <input id="company_lastContactDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: LASTCONTACT_DATEc"/>
+                                </div>
+                                  <label>Next Contact Date</label>
+                                <div class="controls">
+                                     <input id="company_nextContactDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: NEXTCONTACT_DATEc"/>
+                                </div>
+
+                                <label>Start Time</label>
+                                <div class="controls">
+                                    <input id="comp_starttime" style="max-width:200px;" data-bind="kendoTimePicker: { value: StartTimec, min: minTime, max: maxTime } "/>
+                                </div>
+
+                                
+                                  <label>Creation Date</label>
+                                <div class="controls">
+                                     <input id="company_creationDate" style="max-width:180px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: CreationDatec"/>
+                                </div>
+                              
+
+
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+
+                 
+
+
+
+</div>
+ 
+         </div>
+       
+        @* Page Footer *@
+        <div class="row page-footer">
+            <div class="pull-right">
+                <button id="bt_cancel_evt" class="btn btn-danger btn-cancel" type="button">Cancel</button>
+                <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" data-bind="enable: isDirty, click: Save">Save</button>
+            </div>
+        </div>
+
+     </div>
+
+</div>
+
+
+@*Custom extender for Last Name-required *@
+<script>
+    ko.extenders.required = function (target, overrideMessage) {
+        //add some sub-observables to our observable
+        target.hasError = ko.observable();
+        target.validationMessage = ko.observable();
+
+        //define a function to do validation
+        function validate(newValue) {
+            target.hasError(newValue ? false : true);
+            target.validationMessage(newValue ? "" : overrideMessage || "*");
+        }
+        //initial validation
+        validate(target());
+        //validate whenever the value changes
+        target.subscribe(validate);
+        //return the original observable
+        return target;
+    };
+</script>
+
+<script>
+
+    var companyVM;
+
+    //This is after Edit is perfomed
+    function initialize_companyF(compData)
+    {
+        companyVM.COMPANYNAME(compData.COMPANYNAME);
+        companyVM.CompanyOwnership(compData.CompanyOwnership);
+        companyVM.CompanyDescription(compData.CompanyDescription);
+        companyVM.Address(compData.Address);        
+        companyVM.CITY(compData.CITY);
+        companyVM.STATE(compData.STATE);
+        companyVM.Zip(compData.Zip);
+        companyVM.Country(compData.Country);
+        //Is Same Billing Address - Bit Field
+        companyVM.IsSameBillingAddress(compData.IsSameBillingAddress);
+        if(compData.IsSameBillingAddress == true)
+        {
+            companyVM.IsSameBillingAddressInt(1);
+        }
+        else
+        {
+            companyVM.IsSameBillingAddressInt(0);
+        }
+
+        companyVM.BillingAddress(compData.BillingAddress);
+        companyVM.BillingCity(compData.BillingCity);
+        companyVM.BillingState(compData.BillingState);
+        companyVM.BillingZip(compData.BillingZip);
+        companyVM.BillingCountry(compData.BillingCountry);
+
+        companyVM.POCLastName(compData.POCLastName);
+        companyVM.POCFirstName(compData.POCFirstName);
+        companyVM.POCPhone(compData.POCPhone);
+        companyVM.POCDepartment(compData.POCDepartment);
+        companyVM.POCEmail(compData.POCEmail);
+        companyVM.POCFax(compData.POCFax);
+
+        companyVM.AssistantLastName(compData.AssistantLastName);
+        companyVM.AssistantFirstName(compData.AssistantFirstName);
+        companyVM.AssistantPhone(compData.AssistantPhone);
+
+        companyVM.IndustryId(compData.IndustryId);
+        //Is New Company - Bit Field
+        companyVM.IsNewCompany(compData.IsNewCompany);
+        //alert(updatedData.IsSameBillingAddress);
+        if(compData.IsNewCompany == true)
+        {
+            companyVM.IsNewCompanyInt(1);
+        }
+        else
+        {
+            companyVM.IsNewCompanyInt(0);
+        }
+        companyVM.Website(compData.Website);
+        companyVM.EmpQuantity(compData.EmpQuantity);
+        companyVM.COMPANYVALUEGOAL(compData.COMPANYVALUEGOAL);
+        companyVM.RepLastName(compData.RepLastName);
+        companyVM.RepFirstName(compData.RepFirstName);
+
+        companyVM.DiscussionTopic(compData.DiscussionTopic);
+        companyVM.ACTIONSTEP(compData.ACTIONSTEP);
+        companyVM.RepFirstName(compData.RepFirstName);
+        companyVM.RepFirstName(compData.RepFirstName);
+
+        //Last Contact Date
+        if (compData.LASTCONTACT_DATE != null && compData.LASTCONTACT_DATE != "") {
+            companyVM.LASTCONTACT_DATEc(kendo.parseDate(compData.LASTCONTACT_DATE));
+        }
+        else {
+            companyVM.LASTCONTACT_DATEc();
+        }
+
+        //Next Contact Date
+        if (compData.NEXTCONTACT_DATE != null && compData.NEXTCONTACT_DATE != "") {
+            companyVM.NEXTCONTACT_DATEc(kendo.parseDate(compData.NEXTCONTACT_DATE));
+        }
+        else {
+            companyVM.NEXTCONTACT_DATEc();
+        }
+
+        //Creation Date
+        if (compData.CreationDate != null && compData.CreationDate != "") {
+            companyVM.CreationDatec(kendo.parseDate(compData.CreationDate));
+        }
+        else {
+            companyVM.CreationDatec();
+        }
+
+        //Created Date
+        if (compData.CreatedDate != null && compData.CreatedDate != "") {
+            companyVM.CreatedDatec(kendo.parseDate(compData.CreatedDate));
+        }
+        else {
+            companyVM.CreatedDatec();
+        }
+
+        //For Start Time
+        if (compData.StartTime != null && compData.StartTime != "") {
+            companyVM.StartTimec(kendo.parseDate(compData.StartTime));
+        }
+        else {
+            companyVM.StartTimec('');
+        }
+      
+
+        //For Updated Date
+        if (compData.UpdatedDate != null && compData.UpdatedDate != "") {
+            companyVM.UpdatedDatec(kendo.parseDate(compData.UpdatedDate));
+        }
+        else {
+            companyVM.UpdatedDatec();
+        }
+        //For Notes
+        companyVM.Notes(compData.Notes);
+
+    }
+
+</script>
+
+
+<script type="text/javascript">
+    
+     @* Tracking whether there is unsaved change(s). *@
+    ko.dirtyFlag_company = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+
+    //First time display the data
+    function companyDataVM(compData,yesNoData,industries) {
+        
+        //alert("we are here");
+        var self = this; 
+
+        //This is for TimePicker Max and Min time settings : 8 am to 6 pm
+        self.minTime = new Date(1950, 0, 1, 8, 0, 0);
+        self.maxTime = new Date(2049, 11, 31, 18, 0, 0);
+
+        //this is unique Id
+        self.COMPANIESID = ko.observable(compData.COMPANIESID);
+        self.FranchiseeId = ko.observable(compData.FranchiseeId);
+        self.IsActive = ko.observable(compData.IsActive);
+        self.CreatedBy = ko.observable(compData.CreatedBy);
+        self.UpdatedBy = ko.observable(compData.UpdatedBy);
+
+        //company Name, Ownership and Description
+        self.COMPANYNAME = ko.observable(compData.COMPANYNAME).extend({ required: "" });
+        self.CompanyOwnership = ko.observable(compData.CompanyOwnership);
+        self.CompanyDescription = ko.observable(compData.CompanyDescription);
+        //Address, CITY, state, zip and country
+        self.Address = ko.observable(compData.Address);
+        self.CITY = ko.observable(compData.CITY);
+        self.STATE = ko.observable(compData.STATE);
+        self.Zip = ko.observable(compData.Zip);
+        self.Country = ko.observable(compData.Country);
+        
+        self.yesNoData = ko.observableArray(yesNoData);
+        
+        if(compData.IsSameBillingAddress == true)
+        {
+            self.IsSameBillingAddressInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsSameBillingAddressInt = ko.observable(0);
+        }
+
+        self.IsSameBillingAddress =  ko.observable(compData.IsSameBillingAddress);
+        self.IsSameBillingAddressInt.subscribe(function(newValue) {
+            if(newValue == "1") // User has selected yes for the Same Address so we need to populate Billing address/city/state/zip/country as well
+            {
+                self.BillingAddress((self.Address() != '' && self.Address() != 'undefined') ? self.Address() : self.BillingAddress());
+                self.BillingCity((self.CITY() != '' && self.CITY() != 'undefined') ? self.CITY() : self.BillingCity());
+                self.BillingState((self.STATE() != '' && self.STATE() != 'undefined') ? self.STATE() : self.BillingState());
+                self.BillingZip((self.Zip() != '' && self.Zip() != 'undefined') ? self.Zip() : self.BillingZip());
+                self.BillingCountry((self.Country() != '' && self.Country() != 'undefined') ? self.Country() : self.BillingCountry());
+            }
+        });
+        //Billing Address, City, State, Zip and Country
+        self.BillingAddress = ko.observable(compData.BillingAddress);
+        self.BillingCity = ko.observable(compData.BillingCity);
+        self.BillingState = ko.observable(compData.BillingState);
+        self.BillingZip = ko.observable(compData.BillingZip);
+        self.BillingCountry = ko.observable(compData.BillingCountry);
+        //POC Last, First Name
+        self.POCLastName = ko.observable(compData.POCLastName).extend({ required: "" });
+        self.POCFirstName = ko.observable(compData.POCFirstName).extend({ required: "" });
+        self.POCPhone = ko.observable(compData.POCPhone);
+        self.POCDepartment = ko.observable(compData.POCDepartment);
+        self.POCEmail = ko.observable(compData.POCEmail);
+        self.POCFax = ko.observable(compData.POCFax);
+        //Assistant Last, First Name
+        self.AssistantLastName = ko.observable(compData.AssistantLastName);
+        self.AssistantFirstName = ko.observable(compData.AssistantFirstName);
+        self.AssistantPhone = ko.observable(compData.AssistantPhone);
+        //Look up data for yes/no
+        self.yesNoData = ko.observableArray(yesNoData);
+        self.industries = ko.observableArray(industries);
+        
+        self.IndustryId = ko.observable(compData.IndustryId);
+        
+        if(compData.IsNewCompany == true)
+        {
+            self.IsNewCompanyInt = ko.observable(1);
+        }
+        else
+        {
+            self.IsNewCompanyInt = ko.observable(0);
+        }
+        self.IsNewCompany =  ko.observable(compData.IsNewCompany);
+                
+        self.Website = ko.observable(compData.Website);
+        self.EmpQuantity = ko.observable(compData.EmpQuantity);
+        self.COMPANYVALUEGOAL = ko.observable(compData.COMPANYVALUEGOAL);
+        self.RepLastName = ko.observable(compData.RepLastName);
+        self.RepFirstName = ko.observable(compData.RepFirstName);
+        self.DiscussionTopic = ko.observable(compData.DiscussionTopic);
+        self.ACTIONSTEP = ko.observable(compData.ACTIONSTEP);
+        //For all Dates
+
+        //Last Contact Date
+        if (compData.LASTCONTACT_DATE != null && compData.LASTCONTACT_DATE != "") {
+            self.LASTCONTACT_DATEc = ko.observable(kendo.parseDate(compData.LASTCONTACT_DATE));
+        }
+        else {
+            self.LASTCONTACT_DATEc = ko.observable();
+        }
+        self.LASTCONTACT_DATE = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.LASTCONTACT_DATEc());
+        });
+
+        //Next Contact Date
+        if (compData.NEXTCONTACT_DATE != null && compData.NEXTCONTACT_DATE != "") {
+            self.NEXTCONTACT_DATEc = ko.observable(kendo.parseDate(compData.NEXTCONTACT_DATE));
+        }
+        else {
+            self.NEXTCONTACT_DATEc = ko.observable();
+        }
+        self.NEXTCONTACT_DATE = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.NEXTCONTACT_DATEc());
+        });
+
+        //Creation Date
+        if (compData.CreationDate != null && compData.CreationDate != "") {
+            self.CreationDatec = ko.observable(kendo.parseDate(compData.CreationDate));
+        }
+        else {
+            self.CreationDatec = ko.observable();
+        }
+        self.CreationDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.CreationDatec());
+        });
+        
+        //Created Date
+        if (compData.CreatedDate != null && compData.CreatedDate != "") {
+            self.CreatedDatec = ko.observable(kendo.parseDate(compData.CreatedDate));
+        }
+        else {
+            self.CreatedDatec = ko.observable();
+        }
+        self.CreatedDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.CreatedDatec());
+        });
+        
+        //Start Time
+        if (compData.StartTime != null && compData.StartTime != "") {
+            self.StartTimec = ko.observable(kendo.parseDate(compData.StartTime));
+        }
+        else {
+            self.StartTimec = ko.observable('');
+        }
+
+        self.StartTime = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.StartTimec());
+        });
+
+        //Updated Date
+        if (compData.UpdatedDate != null && compData.UpdatedDate != "") {
+            self.UpdatedDatec = ko.observable(kendo.parseDate(compData.UpdatedDate));
+        }
+        else {
+            self.UpdatedDatec = ko.observable();
+        }
+        self.UpdatedDate = ko.computed(function () {
+            return dateUtil_.toNoTimeZone(self.UpdatedDatec());
+        });
+
+        //For Notes
+        self.Notes = ko.observable(compData.Notes);
+
+        self.pageTitle = ko.computed(function () {
+            return (@Model.companyId > 0 ? "Edit Company" : "Add Company");
+        });
+       
+        self.dirtyFlag = new ko.dirtyFlag_company(self);
+
+        self.isDirty = ko.computed(function () {
+            return self.dirtyFlag.isDirty()
+        }, this);
+
+        
+        @*Complete Save Part after client side validation is Ok*@
+        self.continueWithSave = function () {
+            @*Go Ahead with save*@
+            self.dirtyFlag.reset();
+            $('#company_body').block({ message: null });
+            dao_.save("/api/Company/Save", ko.toJSON(self),
+                function (result) {
+                    if (result.success)
+                    {
+                        @*Need to call and API again to get object*@
+                        var updatedData = jsonDataCaller.syncCall("/api/Company/Get?id=" + result.UniqueId, null);
+                        initialize_companyF(updatedData);
+                        $("#company_body").unblock();
+                        showNoti_.hide(); 
+                        @*This will refresh the Company view - Companies/Index.cshtml*@
+                        RefreshGrid();
+                    }
+                    else {
+                        $("#company_body").unblock();
+                        showNoti_.hide();
+                        showNoti_.error(result.message, false);
+                    }
+                },
+                function () {
+                     $("#company_body").unblock();
+                     showNoti_.hide();
+               });
+        };
+
+
+        self.Save = function () {
+            @* Validation *@
+
+            if (!self.COMPANYNAME()) {
+                showNoti_.error('Company Name is Required!!', false);
+                $('#company_name').focus();
+                return;
+            }
+            if (!self.POCLastName()) {
+                showNoti_.error('POC Last Name is Required!!', false);
+                $('#company_pocLastName').focus();
+                return;
+            }
+            if (!self.POCFirstName()) {
+                showNoti_.error('POC First Name is Required!!', false);
+                $('#company_pocFirstName').focus();
+                return;
+            }
+            //For Last Contact Date
+            var dte = $('#company_lastContactDate').val();
+            if (!dte == "") {
+                var d = kendo.parseDate(dte, "MM/dd/yyyy");
+                if (d == null) {
+                    showNoti_.error('Last Contact Date is NOT a valid date.', false);
+                    $('#company_lastContactDate').focus();
+                    return;
+                }
+            }
+            //For Next Contact Date
+            var dte1 = $('#company_nextContactDate').val();
+            if (!dte1 == "") {
+                var d1 = kendo.parseDate(dte1, "MM/dd/yyyy");
+                if (d1 == null) {
+                    showNoti_.error('Next Contact Date is NOT a valid date.', false);
+                    $('#company_nextContactDate').focus();
+                    return;
+                }
+            }
+            //For Creation Date
+            var dte2 = $('#company_creationDate').val();
+            if (!dte2 == "") {
+                var d2 = kendo.parseDate(dte2, "MM/dd/yyyy");
+                if (d2 == null) {
+                    showNoti_.error('Creation Date is NOT a valid date.', false);
+                    $('#company_creationDate').focus();
+                    return;
+                }
+            }
+            //Take care of bit Fields
+            if(self.IsNewCompanyInt() > 0)
+            {
+                self.IsNewCompany(true);
+            }
+            else
+            {
+                self.IsNewCompany(false);
+            }
+
+            if(self.IsSameBillingAddressInt() > 0)
+            {
+                self.IsSameBillingAddress(true);
+            }
+            else
+            {
+                self.IsSameBillingAddress(false);
+            }
+            //Now Continue
+            self.continueWithSave();
+      };
+                
+    }
+    //Document Ready Block
+    $(document).ready(function () {
+
+        var startModule = sandler.appStart.module;
+        
+        @* Cancel (Close) Button *@
+        $("#bt_cancel_evt").click(function () {
+            @* Opened from Application Main Page in a Modal Window *@
+        if (navi_.singlePageInModal('company_body'))
+            navi_.closeModal();
+            @* Opened from other page inside Navigator Page > Close this page *@
+            else if (navi_.totalPages() > 1)
+                navi_.closeCurrentPage();
+            @* Otherwise, redirect to Home Page *@
+            else
+                navi_.closeModal();
+        });
+        
+        compData = jsonDataCaller.syncCall("/api/Company/Get?id=@Model.companyId", null);
+                
+        //Lookup Data
+        yesNoData = startModule.getYesNoOptions();
+        industries = startModule.getIndustryTypes();
+
+        companyVM = new companyDataVM(compData,yesNoData,industries);
+        ko.applyBindings(companyVM, document.getElementById("company_body"));
+        
+    });
+    
+</script>
+
+
+

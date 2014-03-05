@@ -1,0 +1,463 @@
+﻿@using Sandler.Web.ViewModels;
+@using Sandler.DB.Models;
+@model EntityViewModel<TBL_OPPORTUNITIES>
+
+
+<div id="pipeline_body" style="background-color:white">
+
+    @*Page Header*@
+    <div class="row page-header">
+        <div class="col-sm-8">
+            <div class="row"><div class='page-title'><span>Pipeline</span></div></div>
+            <div class="row sub-heading"><div class='page-subtitle' data-bind="text: pageTitle"></div></div>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+    
+    <hr />
+
+
+      @* Pipeline Details *@
+    <div class="container">
+        <div class="row">
+            @* [[[[[ pipeline Related ]]]]] *@
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Pipeline Information</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-12 no-margin">
+                        <form role="form">
+                            <div class="form-group" >
+                                 <label>Company&nbsp;<span class="label label-danger" data-bind='visible: opportunity.COMPANYID.hasError, text: opportunity.COMPANYID.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_Company" type="text" data-bind="kendoDropDownList: { dataTextField: 'name', dataValueField: 'id', data: companies, value: opportunity.COMPANYID }"/>                                                                                           
+                                </div>
+                                
+                                 <label>Contacts</label>                                    
+                                <div class="controls">
+                                     <span data-bind="text: primaryContact, visible: isVisible" />
+                                        <select data-bind="    options: companyContacts, optionsText: 'fullName', optionsValue: 'contactsId', visible: isEditable, selectedOptions: contactsSelected"  style="width:200px;" multiple="true"></select><br />
+                                        <span class="label label-danger" data-bind='visible: opportunity.CONTACTID.hasError, text: opportunity.CONTACTID.validationMessage'></span>
+                                        <span data-bind="text: secondaryContact1, visible: isVisible" />
+                                        <br />
+                                        <span data-bind="text: secondaryContact2, visible: isVisible" />
+                                        <br />
+                                </div>                
+                                 <label data-bind="visible: !isNewOpportunity">Opportunity ID</label>
+                                <div class="controls" data-bind="visible: !isNewOpportunity">
+                                     <input id="pipeline_Opportunity" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.ID"/>
+                                </div>
+                                   <label>Opportunity Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.NAME.hasError, text: opportunity.NAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_opportunityNAME" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.NAME"/>
+                                </div>
+                                 <label>Opportunity Description</label>
+                                <div class="controls">
+                                     <input id="pipeline_opportunityDesc" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Description"/>
+                                </div>
+                                  <label>Opportunity Notes</label>
+                                <div class="controls">
+                                     <input id="Pipeline_opportunityNotes" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Notes"/>
+                                </div>
+                                <label>Sales Rep Last Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.SALESREPLASTNAME.hasError, text: opportunity.SALESREPLASTNAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_RepLastName" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.SALESREPLASTNAME"/>
+                                </div>
+                                 <label>Sales Rep First Name&nbsp;<span class="label label-danger" data-bind='visible: opportunity.SALESREPFIRSTNAME.hasError, text: opportunity.SALESREPFIRSTNAME.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_RepFirstName" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.SALESREPFIRSTNAME"/>
+                                </div>
+                                 <label>Sales Rep Phone</label>
+                                <div class="controls">
+                                     <input id="Pipeline_RepPhone" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.SALESREPPHONE"/>
+                                </div>
+                                 
+
+                            </div>
+
+                        </form>
+                    </div>
+                    
+                    @*<div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                test2
+                            </div>
+                        </form>
+                    </div>
+                    *@
+
+                </div>
+ </div>
+ 
+            
+            <div class="col-md-6 no-margin">
+                <div class="col-title"><span>Pipeline Details</span></div>
+
+                <div class="row">
+
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                            <label>Product&nbsp;<span class="label label-danger" data-bind='visible: opportunity.ProductID.hasError, text: opportunity.ProductID.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_Product"  type="text" data-bind="kendoDropDownList: { dataTextField: 'ProductTypeName', dataValueField: 'Id', data: products, optionLabel: 'Please Select..', value: opportunity.ProductID }"/>                                                                                                    
+                                   </div>
+                            <label>Product Cost</label>
+                                <div class="controls">
+                                     <input id="pipeline_ProductCost" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.ProductCost"/>
+                                </div>
+                                <label> Opportunity Status</label>
+                                <div class="controls">
+                                     <input id="pipeline_OppStatus" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppStatus, optionLabel: 'Please Select..', value: opportunity.STATUSID }"/>                                                                                                    
+                                </div>
+                                <label> Opportunity Source</label>
+                                <div class="controls">
+                                     <input id="pipeline_OppSource" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppSources, optionLabel: 'Please Select..', value: opportunity.SourceID }"/>                                                                                                    
+                                </div>
+                                 <label> Opportunity Type</label>
+                                <div class="controls">
+                                     <input id="pipeline_OppType" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: oppTypes, optionLabel: 'Please Select..', value: opportunity.TypeID }"/>                                                                                                    
+                                </div>
+                                 <label> Why Lost?</label>
+                                <div class="controls">
+                                     <input id="pipeline_WhyLost" type="text" data-bind="kendoDropDownList: { dataTextField: 'Name', dataValueField: 'ID', data: whyLosts, optionLabel: 'Please Select..', value: opportunity.WhyLostID }"/>                                                                                                    
+                                </div>
+                                 <label>Opportunity Value&nbsp;<span class="label label-danger" data-bind='visible: opportunity.VALUE.hasError, text: opportunity.VALUE.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_oppVALUE" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.VALUE"/>
+                                </div>
+                                <label>  Win Probability %</label>
+                                <div class="controls">
+                                    <input id="pipeline_Winprop" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.WINPROBABILITY"/>
+                                </div>
+                                <label>  Weighted Value</label>
+                                <div class="controls">
+                                    <input id="pipeline_WeightedValue" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.WEIGHTEDVALUE"/>
+                                </div>
+                                <label> Actual Value</label>
+                                <div class="controls">
+                                    <input id="pipeline_ActualValue" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.ActualValue"/>
+                                </div>
+   
+                                 </div>
+                        </form>
+                    </div>
+    
+                    <div class="col-sm-6 no-margin">
+                        <form role="form">
+                            <div class="form-group">
+                                <label> Creation Date</label>
+                                <div class="controls">
+                                    <input id="pipeline_creationDate" style="max-width:150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: opportunity.CreationDateC"/>
+                                </div>
+                                <label>Close Date&nbsp;<span class="label label-danger" data-bind='visible: opportunity.CLOSEDATEc.hasError, text: opportunity.CLOSEDATEc.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_closeDate" style="max-width:150px;" maxlength="10" type="text" class="form-control" data-bind="kendoDatePicker: opportunity.CLOSEDATEc"/>
+                                </div>
+                                <label>Pain&nbsp;<span class="label label-danger" data-bind='visible: opportunity.Pain.hasError, text: opportunity.Pain.validationMessage'></span></label>                  
+                                <div class="controls">
+                                     <input id="pipeline_Pain" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Pain"/>
+                                </div>
+                                 <label>Length of Problem</label>
+                                <div class="controls">
+                                     <input id="pipeline_lengthofProblem" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.LengthOfProblem"/>
+                                </div>
+                                 <label>Alternatives</label>
+                                <div class="controls">
+                                     <input id="pipeline_Alternatives" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.Alternatives"/>
+                                </div>
+                                <label>Cost to Fix</label>
+                                <div class="controls">
+                                     <input id="pipeline_CosttoFix" maxlength="50" type="text" class="form-control" data-bind="value: opportunity.CostToFix"/>
+                                </div>
+                                 <label>Budget Identified?</label>
+                                <div class="controls">
+                                     <select data-bind="options: budgetIdentified, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsBudgeIdentified"></select>
+                                </div>
+                                 <label>Move Forward?</label>
+                                <div class="controls">
+                                     <select data-bind="options: moveForward, optionsText: 'Description', optionsValue: 'Value', value: opportunity.IsMoveForward"></select>
+                                </div>
+      </div>
+                        </form>
+                    </div>
+                    
+                </div>
+    
+    
+             </div>
+
+            
+             
+         </div>
+       
+
+
+        @* Page Footer *@
+        <div class="row page-footer">
+            <div class="pull-right">
+                <button id="bt_cancel_evt" type="button" class="btn btn-danger btn-cancel"  >Cancel</button>                
+                <button id="bt_save_evt" class="btn btn-primary btn-save" type="button" value="save" data-bind="enable: isDirty, click: save">Save</button>
+            </div>
+        </div>
+
+     </div>
+
+</div>
+
+<script type="text/javascript" src="~/Scripts/Application/koExtenders.js"></script>
+
+<script type="text/javascript">
+
+      @* Tracking whether there is unsaved change(s). *@
+    ko.dirtyFlag_company = function (root, isInitiallyDirty) {
+
+        var result = function () { },
+            _initialState = ko.observable(ko.toJSON(root)),
+            _isInitiallyDirty = ko.observable(isInitiallyDirty);
+
+        result.isDirty = ko.computed(function () {
+            return _isInitiallyDirty() || _initialState() !== ko.toJSON(root);
+        });
+
+        result.reset = function () {
+            _initialState(ko.toJSON(root));
+            _isInitiallyDirty(false);
+        };
+
+        return result;
+    };
+
+    var startModule = sandler.appStart.module;
+    var pageVM = function (opportunityObservable) {
+        var self = this;
+        self.isNewOpportunity = ko.observable(false);
+        self.opportunity = opportunityObservable;
+        if (self.opportunity.ID() == 0)
+            self.isNewOpportunity(true);
+
+        if (self.opportunity.CreationDate != null && self.opportunity.CreationDate() != "") {
+            self.opportunity.CreationDateC = ko.observable(kendo.parseDate(self.opportunity.CreationDate()));
+        }
+        else {
+            self.opportunity.CreationDateC = ko.observable('');
+        }
+        if (self.opportunity.CLOSEDATE() != null && self.opportunity.CLOSEDATE() != "") {
+            self.opportunity.CLOSEDATEc = ko.observable(kendo.parseDate(self.opportunity.CLOSEDATE()));
+        }
+        else {
+            self.opportunity.CLOSEDATEc = ko.observable('');
+        }
+
+        self.opportunity.COMPANYID.extend({ required: "*" });
+        self.opportunity.NAME.extend({ required: "*" });
+        self.opportunity.SALESREPLASTNAME.extend({ required: "*" });
+        self.opportunity.SALESREPFIRSTNAME.extend({ required: "*" });
+        self.opportunity.ProductID.extend({ required: "*" });
+        self.opportunity.VALUE.extend({ required: "*" });
+        self.opportunity.CLOSEDATEc.extend({ required: "*" });
+        self.opportunity.Pain.extend({ required: "*" });
+
+        self.opportunity.companyName = ko.computed(function () {
+            return startModule.getCompanyName(self.opportunity.COMPANYID());
+        }, self);
+        self.opportunity.productName = ko.computed(function () {
+            return startModule.getProductName(self.opportunity.ProductID());
+        }, self);
+        self.opportunity.oppStatus = ko.computed(function () {
+            return startModule.getOpportunityStatusName(self.opportunity.STATUSID());
+        }, self);
+        self.opportunity.oppSource = ko.computed(function () {
+            return startModule.getOpportunitySourcesName(self.opportunity.SourceID());
+        }, self);
+        self.opportunity.type = ko.computed(function () {
+            return startModule.getOpportunityTypesName(self.opportunity.TypeID());
+        }, self);
+        self.opportunity.whyLost = ko.computed(function () {
+            return startModule.getOpportunityWhyLostsName(self.opportunity.WhyLostID());
+        }, self);
+        self.opportunity.budget = ko.computed(function () {
+            return startModule.getYesNo(self.opportunity.IsBudgeIdentified());
+        }, self);
+        self.opportunity.moveForward = ko.computed(function () {
+            return startModule.getYesNo(self.opportunity.IsMoveForward());
+        }, self);
+
+
+
+        self.companies = startModule.getUserCompanies();
+        self.products = startModule.getProductTypes();
+        self.whyLosts = startModule.getOpportunityWhyLosts();
+        self.oppStatus = startModule.getOpportunityStatus();
+        self.oppSources = startModule.getOpportunitySources();
+        self.oppTypes = startModule.getOpportunityTypes();
+        self.budgetIdentified = startModule.getYesNoOptions();
+        self.moveForward = startModule.getYesNoOptions();
+
+        self.contactsSelected = ko.observableArray([]);
+        self.resetContactSelection = function () {
+            self.contactsSelected([]);
+            self.opportunity.CONTACTID('');
+            self.opportunity.SeconadryContactId1('');
+            self.opportunity.SeconadryContactId2('');
+        };
+        self.companyContacts = ko.computed(function () {
+            var localCompanyContacts = '';
+            //console.log('self.opportunity.COMPANYID()');
+            //console.log(self.opportunity.COMPANYID());
+            if (self.opportunity.COMPANYID() > 0) {
+                self.resetContactSelection();
+                localCompanyContacts = startModule.getUserContactsByCompany(self.opportunity.COMPANYID())
+                if (localCompanyContacts.length == 0) {
+                    showNoti_.error('Create contacts for the company selected.', false);
+                }
+            }
+            return localCompanyContacts;
+        }, self);
+        self.primaryContact = ko.computed(function () {
+            var fullName = '';
+            $.each(self.companyContacts(), function (i, contactRecord) {
+                if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.CONTACTID())) {
+                    fullName = contactRecord.fullName;
+                    return false;
+                }
+            });
+            //console.log('fullName');
+            //console.log(fullName);
+            return fullName;
+        }, self);
+        self.secondaryContact1 = ko.computed(function () {
+            var fullName = '';
+            $.each(self.companyContacts(), function (i, contactRecord) {
+                if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.SeconadryContactId1())) {
+                    fullName = contactRecord.fullName;
+                    return false;
+                }
+            });
+            return fullName;
+        }, self);
+        self.secondaryContact2 = ko.computed(function () {
+            var fullName = '';
+            $.each(self.companyContacts(), function (i, contactRecord) {
+                if (parseInt(contactRecord.contactsId) == parseInt(self.opportunity.SeconadryContactId2())) {
+                    fullName = contactRecord.fullName;
+                    return false;
+                }
+            });
+            return fullName;
+        }, self);
+
+        self.isVisible = ko.observable(false);
+        self.isEditable = ko.observable(true);
+        self.makeEditable = function () {
+            self.isEditable(true);
+            self.isVisible(false);
+            //self.saveVisible(true);
+        };
+
+        self.pageTitle = ko.computed(function () {
+            return (self.opportunity.ID() > 0 ? "Edit Pipeline" : "Add Pipeline");
+        });
+        self.dirtyFlag = new ko.dirtyFlag_company(self);
+
+        self.isDirty = ko.computed(function () {
+            return self.dirtyFlag.isDirty()
+        }, this);
+
+        self.saveVisible = ko.computed(function () { return self.isEditable(); }, self);
+        self.save = function () {
+            if (!self.opportunity.COMPANYID()) {
+                showNoti_.error('Please select a company first.', false);
+                return;
+            }
+            //console.log('self.contactsSelected().length()')
+            //console.log(self.contactsSelected().length);
+            if (self.contactsSelected().length == 0) {
+                showNoti_.error('Please select at least one contact from the list OR make sure there are contact created for the company selected.', false);
+                return;
+            }
+            else if (self.contactsSelected().length > 3) {
+                showNoti_.error('Please select maximum 3 contacts from the list.', false);
+                return;
+            }
+            else {
+                self.opportunity.CONTACTID(self.contactsSelected()[0]);
+                if (self.contactsSelected().length > 1) self.opportunity.SeconadryContactId1(self.contactsSelected()[1]);
+                if (self.contactsSelected().length > 2) self.opportunity.SeconadryContactId2(self.contactsSelected()[2]);
+                //console.log('self.opportunity.SeconadryContactId1():' + self.opportunity.SeconadryContactId1());
+                //console.log('self.opportunity.SeconadryContactId2():' + self.opportunity.SeconadryContactId2());
+
+            }
+            if (!self.opportunity.NAME()) {
+                showNoti_.error('Opportunity name is required.', false);
+                return;
+            }
+            if (!self.opportunity.SALESREPLASTNAME()) {
+                showNoti_.error('Lastname of sales representative is required', false);
+                return;
+            }
+            if (!self.opportunity.SALESREPFIRSTNAME()) {
+                showNoti_.error('Firstname of sales representative is required', false);
+                return;
+            }
+            if (!self.opportunity.ProductID()) {
+                showNoti_.error('Product selection is required', false);
+                return;
+            }
+            if (!self.opportunity.VALUE()) {
+                showNoti_.error('Value of opportunity is required', false);
+                return;
+            }
+            if (!self.opportunity.CLOSEDATEc()) {
+                showNoti_.error('Close date is required', false);
+                return;
+            }
+            if (!self.opportunity.Pain()) {
+                showNoti_.error('Pain is required', false);
+                return;
+            }
+            self.opportunity.CLOSEDATE(self.opportunity.CLOSEDATEc());
+            self.opportunity.CreationDate(self.opportunity.CreationDateC());
+            $.ajax({
+                url: 'api/PipelineSave',
+                type: "POST",
+                data: ko.toJSON(self.opportunity),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                async: false,
+                success: function (response) {
+                    console.log('save pipeline');
+                    showNoti_.info('Pipeline saved successfully.', true);
+                },
+                error: function (response, errorText) {
+                    showNoti_.error('Unable to save pipeline, server error occures.', true);
+                    return false;
+                }
+            });
+        }
+
+
+    }
+    $(document).ready(function () {
+           @* Cancel (Close) Button *@
+        $("#bt_cancel_evt").click(function () {
+            @* Opened from Application Main Page in a Modal Window *@
+            if (navi_.singlePageInModal('pipeline_body'))
+                navi_.closeModal();
+            @* Opened from other page inside Navigator Page > Close this page *@
+            else if (navi_.totalPages() > 1)
+                navi_.closeCurrentPage();
+            @* Otherwise, redirect to Home Page *@
+        else
+            navi_.closeModal();
+
+        });
+
+        var vm = new pageVM(ko.mapping.fromJS( @Html.Raw(Json.Encode(@Model.EntityModel))));
+        //console.log(vm.opportunity);
+        ko.applyBindings(vm, document.getElementById("pipeline_body"));
+
+    });
+</script>

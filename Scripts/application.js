@@ -1,5 +1,6 @@
 ﻿﻿//var applicationname = "";
-var applicationname = "/SandlerTrainingNew";
+//var applicationname = "/SandlerTrainingNew";
+var applicationname = "";
 
 var myhost = window.location.protocol + "//" + window.location.host
 var absoluteapp = myhost + applicationname;
@@ -473,7 +474,9 @@ sandler.namespace("appStart").module= (function () {
 
 $(function () {
     var startModule = sandler.appStart.module;
+    //console.log("1");
     startModule.initialize();
+    //console.log("2");
 });
 function getFileName(document) {
     var fileName = document.split('_');
